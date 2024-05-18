@@ -1,0 +1,38 @@
+/* convert ASCII text into base64 */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "utils.h"
+
+static char base64_tbl[];
+
+int main(int argc, char **argv)
+{
+    char *buf = (char *) malloc(32 * sizeof(char));
+    char *dest = (char *) malloc(64 * sizeof(char));
+
+    memcpy(buf, "ABC", 3);
+    encode_b64(dest, buf);
+
+    printf("%s\n", dest);
+
+    int delim = 6;
+    char *result = (char *) malloc(64 * sizeof(char));
+    char tmp[7];
+    while (dest) {
+	int i = 0;
+	for (; i < delim; ++i) {
+	    tmp[i] = *dest++;
+	}
+	tmp[i] = '\0';
+	printf("%s\n", tmp);
+    }
+
+    free(result);
+    free(dest);
+    free(buf);
+    
+    return 0;
+}
+
